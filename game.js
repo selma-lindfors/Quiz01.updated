@@ -10,7 +10,7 @@ const episodeNameText = document.getElementById("episodeName");
 const contentNameText = document.getElementById("contentName");
 const urlNameText = document.getElementById("episodeurl");
 const id =  window.location.search.split("=")[1];
-
+const segmentList = document.getElementById("segment-index");
 
 // state
 let currentQuestion = {};
@@ -25,11 +25,14 @@ const MAX_QUESTIONS = 50;
 
 
 const startGame = () => {
+    segment.addEventListener("click", e => {
+        getNewQuestion();
+        game.classList.remove("hidden"); 
+        segmentList.classList.add("hidden"); 
+        })
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
-    getNewQuestion();
-    game.classList.remove("hidden");
     loader.classList.add("hidden");
 }
 
