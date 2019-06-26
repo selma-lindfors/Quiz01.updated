@@ -41,15 +41,26 @@ const startGame = () => {
 }
 
 const segmentSelector = () => {
-
-const testButton = document.createElement(button);
+    const segmentButtons = document.getElementById("segment-buttons")
     const segmentList = [...new Set(questions.map(question => question.contentSegment))];
-    segment.innerText = segmentList.join(" ");
-    segment.addEventListener("click", e => {
+    segmentList.forEach(segment => {
+        createButtonInsideListItem(segmentButtons, segment);
+    })
+    //segment.innerText = segmentList.join(" ");
+    /*segment.addEventListener("click", e => {
         getNewQuestion();
         game.classList.remove("hidden"); 
         segmentBox.classList.add("hidden"); 
-        })
+        })*/
+}
+
+const createButtonInsideListItem = (list, text) => {
+    const li = document.createElement("li");
+    list.appendChild(li);
+    const button = document.createElement("button");
+    li.appendChild(button);
+    button.innerText = text;
+    button.classList.add("btn");
 }
 
 const getNewQuestion = () => {
@@ -114,7 +125,4 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSfBk-rwrIauBPn7iuoLXBxP
             else return question.contentId === id;
         });
         startGame();
-    })
-    .catch(function(error){
-        //
     })
