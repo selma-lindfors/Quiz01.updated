@@ -10,7 +10,8 @@ const episodeNameText = document.getElementById("episodeName");
 const contentNameText = document.getElementById("contentName");
 const urlNameText = document.getElementById("episodeurl");
 const id =  window.location.search.split("=")[1];
-const segmentList = document.getElementById("segment-index");
+const segmentBox = document.getElementById("segment-index");
+
 
 // state
 let currentQuestion = {};
@@ -24,16 +25,31 @@ const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 50;
 
 
+
 const startGame = () => {
+   /* segment.innerText = segmentList.join(" ");
     segment.addEventListener("click", e => {
         getNewQuestion();
         game.classList.remove("hidden"); 
-        segmentList.classList.add("hidden"); 
-        })
+        segmentBox.classList.add("hidden"); 
+        }) */
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
     loader.classList.add("hidden");
+    segmentSelector();
+}
+
+const segmentSelector = () => {
+
+const testButton = document.createElement(button);
+    const segmentList = [...new Set(questions.map(question => question.contentSegment))];
+    segment.innerText = segmentList.join(" ");
+    segment.addEventListener("click", e => {
+        getNewQuestion();
+        game.classList.remove("hidden"); 
+        segmentBox.classList.add("hidden"); 
+        })
 }
 
 const getNewQuestion = () => {

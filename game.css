@@ -63,6 +63,10 @@
     transition: transform 150ms;
 }
 
+#segment {
+    display:block;
+}
+
 #loader {
     border: 1.6rem solid white; 
     border-top: 1.6rem solid #7BADB6; 
