@@ -11,6 +11,7 @@ const contentNameText = document.getElementById("contentName");
 const urlNameText = document.getElementById("episodeurl");
 const id =  window.location.search.split("=")[1];
 const segmentBox = document.getElementById("segment-index");
+const segmentButtons = document.getElementById("segment-buttons")
 
 
 // state
@@ -29,11 +30,11 @@ const MAX_QUESTIONS = 50;
 const startGame = () => {
     questionCounter = 0;
     score = 0;
-    availableQuestions = [...questions];
     loader.classList.add("hidden");
     if(id === "0") {
-        getNewQuestion();
         game.classList.remove("hidden");
+        availableQuestions = [...questions];
+        getNewQuestion();
     }
     else  {
         segmentBox.classList.remove("hidden");
@@ -41,17 +42,21 @@ const startGame = () => {
 }
 
 const segmentSelector = () => {
-    const segmentButtons = document.getElementById("segment-buttons")
     const segmentList = [...new Set(questions.map(question => question.contentSegment))];
     segmentList.forEach(segment => {
         createButtonInsideListItem(segmentButtons, segment);
     })
     segmentButtons.addEventListener("click", e => {
+        questions.forEach(question => {
+        if (question.contentSegment === e.path[1].innerText){
+        availableQuestions.push(question)
+        }})
         getNewQuestion();
         game.classList.remove("hidden"); 
         segmentBox.classList.add("hidden"); 
-        })
-}
+    })
+        }
+
 
 const createButtonInsideListItem = (list, text) => {
     const li = document.createElement("li");
@@ -80,7 +85,7 @@ const getNewQuestion = () => {
         const number = choice.dataset["number"];
         choice.innerText = currentQuestion["choice" + number];
     })
-    
+
     availableQuestions.splice(questionIndex, 1);
     acceptingAnswers = true;
 
