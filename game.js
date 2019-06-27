@@ -27,17 +27,17 @@ const MAX_QUESTIONS = 50;
 
 
 const startGame = () => {
-   /* segment.innerText = segmentList.join(" ");
-    segment.addEventListener("click", e => {
-        getNewQuestion();
-        game.classList.remove("hidden"); 
-        segmentBox.classList.add("hidden"); 
-        }) */
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
     loader.classList.add("hidden");
-    segmentSelector();
+    if(id === "0") {
+        getNewQuestion();
+        game.classList.remove("hidden");
+    }
+    else  {
+        segmentBox.classList.remove("hidden");
+        segmentSelector();}
 }
 
 const segmentSelector = () => {
@@ -46,12 +46,11 @@ const segmentSelector = () => {
     segmentList.forEach(segment => {
         createButtonInsideListItem(segmentButtons, segment);
     })
-    //segment.innerText = segmentList.join(" ");
-    /*segment.addEventListener("click", e => {
+    segmentButtons.addEventListener("click", e => {
         getNewQuestion();
         game.classList.remove("hidden"); 
         segmentBox.classList.add("hidden"); 
-        })*/
+        })
 }
 
 const createButtonInsideListItem = (list, text) => {
@@ -125,4 +124,7 @@ d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSfBk-rwrIauBPn7iuoLXBxP
             else return question.contentId === id;
         });
         startGame();
-    })
+        })
+        .catch(function(error){
+        //         
+        })
