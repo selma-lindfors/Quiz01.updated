@@ -63,6 +63,10 @@
     transition: transform 150ms;
 }
 
+#segment {
+    display:block;
+}
+
 #loader {
     border: 1.6rem solid white; 
     border-top: 1.6rem solid #7BADB6; 
@@ -76,3 +80,32 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+.segment-btn  {
+    font-size: 1.8rem;
+    font-weight: 500;
+    background-color: white;
+    border: 0.1rem solid black;
+    box-shadow: none;
+    color:black;
+    padding: 1rem;
+    width: 100%;
+    text-align: left;
+}
+
+.segment-btn:hover {
+    color: #A9431E;
+}
+
+
+
+
+#segment-buttons {
+    list-style: none;
+}
+
+@media (min-width: 51rem){
+    #segment-buttons {
+        columns: 2 auto;
+    }
+} 
