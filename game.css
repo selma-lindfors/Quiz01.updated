@@ -81,3 +81,33 @@
     100% { transform: rotate(360deg); }
   }
 
+.segment-btn  {
+    font-size: 1.8rem;
+    font-weight: 500;
+    background-color: white;
+    border: 0.1rem solid black;
+    box-shadow: none;
+    color:black;
+    padding: 1rem;
+    width: 100%;
+    text-align: left;
+}
+
+.segment-btn:hover {
+    color: #A9431E;
+}
+
+.container {
+    height: auto;
+    margin-top: 8rem;
+}
+
+#segment-buttons {
+    list-style: none;
+}
+
+@media (min-width: 51rem){
+    #segment-buttons {
+        columns: 2 auto;
+    }
+} 

@@ -48,9 +48,10 @@ const segmentSelector = () => {
     })
     segmentButtons.addEventListener("click", e => {
         questions.forEach(question => {
-        if (question.contentSegment === e.path[1].innerText){
+        if (question.contentSegment === e.target.innerText){
         availableQuestions.push(question)
         }})
+       // console.log(availableQuestions);
         getNewQuestion();
         game.classList.remove("hidden"); 
         segmentBox.classList.add("hidden"); 
@@ -64,7 +65,7 @@ const createButtonInsideListItem = (list, text) => {
     const button = document.createElement("button");
     li.appendChild(button);
     button.innerText = text;
-    button.classList.add("btn");
+    button.classList.add("segment-btn");
 }
 
 const getNewQuestion = () => {
