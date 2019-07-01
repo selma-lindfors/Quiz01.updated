@@ -101,17 +101,56 @@ choices.forEach(choice => {
     if (classToApply === "correct") {
       incrementScore(CORRECT_BONUS);
     }
-
-    console.log(classToApply);
-    console.log(selectedAnswer);
-
     selectedChoice.parentElement.classList.add(classToApply);
-    setTimeout(() => {
-      selectedChoice.parentElement.classList.remove(classToApply);
-      getNewQuestion();
-    }, 500);
+
+    if (classToApply === "correct") {
+      setTimeout(() => {
+        selectedChoice.parentElement.classList.remove(classToApply);
+        getNewQuestion();
+      }, 500);
+    } else {
+      wrongAnswer();
+    }
+    /*else {
+      //setTimeout(() => {
+      choices.forEach(choice => {
+        if (choice.dataset["number"] === currentQuestion.answer) {
+          choice.parentElement.classList.add("correct");
+        }
+      });
+      //}, 200);
+      //acceptingAnswers = false;
+      console.log(acceptingAnswers);
+      //setTimeout(() => {
+      addEventListener("click", e => {
+        choices.forEach(choice => {
+          choice.parentElement.classList.remove(["incorrect"]);
+          choice.parentElement.classList.remove(["correct"]);
+        });
+        acceptingAnswers = false;
+        getNewQuestion();
+      });
+      //}, 500);
+    }*/
   });
 });
+
+const wrongAnswer = () => {
+  setTimeout(() => {
+    choices.forEach(choice => {
+      if (choice.dataset["number"] === currentQuestion.answer) {
+        choice.parentElement.classList.add("correct");
+      }
+    });
+  }, 200);
+  setTimeout(() => {
+    choices.forEach(choice => {
+      choice.parentElement.classList.remove(["incorrect"]);
+      choice.parentElement.classList.remove(["correct"]);
+    });
+    getNewQuestion();
+  }, 1500);
+};
 
 const incrementScore = num => {
   score += num;
