@@ -45,6 +45,7 @@ const segmentSelector = () => {
   segmentList.forEach(segment =>
     createButtonInsideListItem(segmentButtons, segment)
   );
+  createButtonInsideListItem(segmentButtons, "Play All!");
 };
 
 const createButtonInsideListItem = (list, text) => {
@@ -58,9 +59,12 @@ const createButtonInsideListItem = (list, text) => {
 };
 
 const startSegmentGame = e => {
-  availableQuestions = questions.filter(
-    question => question.contentSegment === e.target.innerText
-  );
+  if (e.target.innerText === "Play All!") {
+    availableQuestions = [...questions];
+  } else
+    availableQuestions = questions.filter(
+      question => question.contentSegment === e.target.innerText
+    );
   getNewQuestion();
   game.classList.remove("hidden");
   segmentBox.classList.add("hidden");
