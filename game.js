@@ -23,7 +23,7 @@ let questions = [];
 let cont = false;
 // state
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 50;
+let MAX_QUESTIONS = 20;
 
 const startGame = () => {
   questionCounter = 0;
@@ -62,6 +62,9 @@ const startSegmentGame = e => {
   availableQuestions = questions.filter(
     question => question.contentSegment === e.target.innerText
   );
+  if (availableQuestions.length < MAX_QUESTIONS) {
+    MAX_QUESTIONS = availableQuestions.length;
+  }
   getNewQuestion();
   game.classList.remove("hidden");
   segmentBox.classList.add("hidden");
