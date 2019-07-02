@@ -20,9 +20,9 @@ let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
 let questions = [];
+let MAX_QUESTIONS = 20;
 // state
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 50;
 
 const startGame = () => {
   questionCounter = 0;
@@ -31,6 +31,7 @@ const startGame = () => {
   if (id === "0") {
     game.classList.remove("hidden");
     availableQuestions = [...questions];
+    MAX_QUESTIONS = 50;
     getNewQuestion();
   } else {
     segmentBox.classList.remove("hidden");
@@ -65,6 +66,9 @@ const startSegmentGame = e => {
     availableQuestions = questions.filter(
       question => question.contentSegment === e.target.innerText
     );
+  if (availableQuestions.length < MAX_QUESTIONS) {
+    availableQuestions.length = availableQuestions;
+  }
   getNewQuestion();
   game.classList.remove("hidden");
   segmentBox.classList.add("hidden");
