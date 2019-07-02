@@ -20,6 +20,7 @@ let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
 let questions = [];
+let cont = false;
 // state
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 50;
@@ -67,6 +68,7 @@ const startSegmentGame = e => {
 };
 
 const getNewQuestion = () => {
+  cont = false;
   if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS - 1) {
     localStorage.setItem("mostRecentScore", score);
     return window.location.assign("end.html?contentId=" + id);
@@ -89,9 +91,32 @@ const getNewQuestion = () => {
   acceptingAnswers = true;
 };
 
+const wrongAnswer = () => {
+  setTimeout(() => {
+    choices.forEach(choice => {
+      if (choice.dataset["number"] === currentQuestion.answer) {
+        choice.parentElement.classList.add("correct");
+      }
+    });
+    cont = true;
+  }, 200);
+};
+
+const continueGame = () => {
+  if (cont) {
+    choices.forEach(choice => {
+      choice.parentElement.classList.remove(["incorrect"]);
+      choice.parentElement.classList.remove(["correct"]);
+    });
+    getNewQuestion();
+  } else return;
+};
+
+document.body.addEventListener("click", e => continueGame());
+
 choices.forEach(choice => {
   choice.addEventListener("click", e => {
-    if (!acceptingAnswers) return;
+    if (!acceptingAnswers | cont) return;
     acceptinganswers = false;
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
@@ -109,48 +134,11 @@ choices.forEach(choice => {
         getNewQuestion();
       }, 500);
     } else {
+      acceptingAnswers = false;
       wrongAnswer();
     }
-    /*else {
-      //setTimeout(() => {
-      choices.forEach(choice => {
-        if (choice.dataset["number"] === currentQuestion.answer) {
-          choice.parentElement.classList.add("correct");
-        }
-      });
-      //}, 200);
-      //acceptingAnswers = false;
-      console.log(acceptingAnswers);
-      //setTimeout(() => {
-      addEventListener("click", e => {
-        choices.forEach(choice => {
-          choice.parentElement.classList.remove(["incorrect"]);
-          choice.parentElement.classList.remove(["correct"]);
-        });
-        acceptingAnswers = false;
-        getNewQuestion();
-      });
-      //}, 500);
-    }*/
   });
 });
-
-const wrongAnswer = () => {
-  setTimeout(() => {
-    choices.forEach(choice => {
-      if (choice.dataset["number"] === currentQuestion.answer) {
-        choice.parentElement.classList.add("correct");
-      }
-    });
-  }, 200);
-  setTimeout(() => {
-    choices.forEach(choice => {
-      choice.parentElement.classList.remove(["incorrect"]);
-      choice.parentElement.classList.remove(["correct"]);
-    });
-    getNewQuestion();
-  }, 1500);
-};
 
 const incrementScore = num => {
   score += num;
