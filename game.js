@@ -20,18 +20,20 @@ let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
 let questions = [];
-let MAX_QUESTIONS = 20;
+let isSegmentGame = false;
+let maxQuestions = 20;
 // state
 const CORRECT_BONUS = 10;
 
 const startGame = () => {
   questionCounter = 0;
   score = 0;
+  scoreText.innerText = score;
   loader.classList.add("hidden");
   if (id === "0") {
     game.classList.remove("hidden");
     availableQuestions = [...questions];
-    MAX_QUESTIONS = 50;
+    maxQuestions = 50;
     getNewQuestion();
   } else {
     segmentBox.classList.remove("hidden");
@@ -62,11 +64,13 @@ const createButtonInsideListItem = (list, text) => {
 const startSegmentGame = e => {
   if (e.target.innerText === "Play All!") {
     availableQuestions = [...questions];
-  } else
+  } else {
     availableQuestions = questions.filter(
       question => question.contentSegment === e.target.innerText
     );
-  if (availableQuestions.length < MAX_QUESTIONS) {
+    isSegmentGame = true;
+  }
+  if (availableQuestions.length < maxQuestions) {
     availableQuestions.length = availableQuestions;
   }
   getNewQuestion();
@@ -75,13 +79,17 @@ const startSegmentGame = e => {
 };
 
 const getNewQuestion = () => {
-  if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS - 1) {
+  if (availableQuestions.length === 0 || questionCounter > maxQuestions - 1) {
     localStorage.setItem("mostRecentScore", score);
-    return window.location.assign("end.html?contentId=" + id);
+    if (isSegmentGame === false) {
+      return window.location.assign("end.html?contentId=" + id + "&all=1");
+    } else {
+      return window.location.assign("end.html?contentId=" + id);
+    }
   }
 
   questionCounter++;
-  questionCounterText.innerText = questionCounter + "/" + MAX_QUESTIONS;
+  questionCounterText.innerText = questionCounter + "/" + maxQuestions;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   episodeNameText.innerText = currentQuestion.contentSegment;
