@@ -20,8 +20,10 @@ let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
 let questions = [];
-let isSegmentGame = false;
+let cont = false;
 let maxQuestions = 20;
+let isSegmentGame = false;
+
 // state
 const CORRECT_BONUS = 10;
 
@@ -79,6 +81,7 @@ const startSegmentGame = e => {
 };
 
 const getNewQuestion = () => {
+  cont = false;
   if (availableQuestions.length === 0 || questionCounter > maxQuestions - 1) {
     localStorage.setItem("mostRecentScore", score);
     if (isSegmentGame === false) {
@@ -105,9 +108,32 @@ const getNewQuestion = () => {
   acceptingAnswers = true;
 };
 
+const wrongAnswer = () => {
+  setTimeout(() => {
+    choices.forEach(choice => {
+      if (choice.dataset["number"] === currentQuestion.answer) {
+        choice.parentElement.classList.add("correct");
+      }
+    });
+    cont = true;
+  }, 200);
+};
+
+const continueGame = () => {
+  if (cont) {
+    choices.forEach(choice => {
+      choice.parentElement.classList.remove(["incorrect"]);
+      choice.parentElement.classList.remove(["correct"]);
+    });
+    getNewQuestion();
+  } else return;
+};
+
+document.body.addEventListener("click", e => continueGame());
+
 choices.forEach(choice => {
   choice.addEventListener("click", e => {
-    if (!acceptingAnswers) return;
+    if (!acceptingAnswers | cont) return;
     acceptinganswers = false;
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
@@ -117,15 +143,17 @@ choices.forEach(choice => {
     if (classToApply === "correct") {
       incrementScore(CORRECT_BONUS);
     }
-
-    console.log(classToApply);
-    console.log(selectedAnswer);
-
     selectedChoice.parentElement.classList.add(classToApply);
-    setTimeout(() => {
-      selectedChoice.parentElement.classList.remove(classToApply);
-      getNewQuestion();
-    }, 500);
+
+    if (classToApply === "correct") {
+      setTimeout(() => {
+        selectedChoice.parentElement.classList.remove(classToApply);
+        getNewQuestion();
+      }, 500);
+    } else {
+      acceptingAnswers = false;
+      wrongAnswer();
+    }
   });
 });
 
