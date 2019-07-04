@@ -107,6 +107,9 @@ h4 {
   box-shadow: none;
   transform: none;
 }
+.btn.wide {
+  width: 100%;
+}
 
 /* forms */
 
@@ -128,4 +131,10 @@ input {
 
 input::placeholder {
   color: #888;
+}
+
+@media (min-width: 51rem) {
+  .window-column {
+    columns: 2 auto;
+  }
 }

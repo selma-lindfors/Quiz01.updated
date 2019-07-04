@@ -58,14 +58,12 @@
 
 #episodeName:hover {
   cursor: pointer;
-  /*shadow: 0 0.4rem 1.0rem 0 rgba(123, 173, 182, 0.5);*/
+  color: #a9431e;
   transform: translateY(-0.1rem);
   transition: transform 150ms;
 }
 
-#segment {
-  display: block;
-}
+/* loader */
 
 #loader {
   border: 1.6rem solid white;
@@ -85,6 +83,12 @@
   }
 }
 
+/* segment box */
+
+#segment-buttons {
+  list-style: none;
+}
+
 .segment-btn {
   font-size: 1.8rem;
   font-weight: 500;
@@ -99,14 +103,4 @@
 
 .segment-btn:hover {
   color: #a9431e;
-}
-
-#segment-buttons {
-  list-style: none;
-}
-
-@media (min-width: 51rem) {
-  #segment-buttons {
-    columns: 2 auto;
-  }
 }
