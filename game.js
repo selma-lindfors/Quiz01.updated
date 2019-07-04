@@ -12,7 +12,10 @@ const urlNameText = document.getElementById("episodeurl");
 const id = window.location.search.split("=")[1];
 const segmentBox = document.getElementById("segment-index");
 const segmentButtons = document.getElementById("segment-buttons");
-
+const answerForm = document.getElementById("answer-form");
+const choiceBox = document.getElementById("choice-box");
+const saveAnswerBtn = document.getElementById("saveAnswerButton");
+const answer = document.getElementById("answer");
 // state
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -73,7 +76,7 @@ const startSegmentGame = e => {
     isSegmentGame = true;
   }
   if (availableQuestions.length < maxQuestions) {
-    availableQuestions.length = availableQuestions;
+    availableQuestions.length = maxQuestions;
   }
   getNewQuestion();
   game.classList.remove("hidden");
@@ -99,11 +102,27 @@ const getNewQuestion = () => {
   contentNameText.innerText = currentQuestion.content;
   question.innerText = currentQuestion.question;
   urlNameText.href = currentQuestion.url;
-  choices.forEach(choice => {
-    const number = choice.dataset["number"];
-    choice.innerText = currentQuestion["choice" + number];
-  });
 
+  if (currentQuestion.open === "TRUE") {
+    answerForm.classList.remove("hidden");
+    choiceBox.classList.add("hidden");
+    answer.addEventListener(
+      "keyup",
+      () => (saveAnswerBtn.disabled = !answer.value)
+    );
+    document.getElementById("saveAnswerButton").addEventListener("click", e => {
+      e.preventDefault();
+      console.log(
+        answer.value === currentQuestion["choice" + currentQuestion.answer]
+      );
+      getNewQuestion();
+    });
+  } else {
+    choices.forEach(choice => {
+      const number = choice.dataset["number"];
+      choice.innerText = currentQuestion["choice" + number];
+    });
+  }
   availableQuestions.splice(questionIndex, 1);
   acceptingAnswers = true;
 };
