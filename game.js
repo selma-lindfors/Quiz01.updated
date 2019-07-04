@@ -21,17 +21,21 @@ let questionCounter = 0;
 let availableQuestions = [];
 let questions = [];
 let cont = false;
+let maxQuestions = 20;
+let isSegmentGame = false;
+
 // state
 const CORRECT_BONUS = 10;
-let MAX_QUESTIONS = 20;
 
 const startGame = () => {
   questionCounter = 0;
   score = 0;
+  scoreText.innerText = score;
   loader.classList.add("hidden");
   if (id === "0") {
     game.classList.remove("hidden");
     availableQuestions = [...questions];
+    maxQuestions = 50;
     getNewQuestion();
   } else {
     segmentBox.classList.remove("hidden");
@@ -46,6 +50,7 @@ const segmentSelector = () => {
   segmentList.forEach(segment =>
     createButtonInsideListItem(segmentButtons, segment)
   );
+  createButtonInsideListItem(segmentButtons, "Play All!");
 };
 
 const createButtonInsideListItem = (list, text) => {
@@ -59,11 +64,16 @@ const createButtonInsideListItem = (list, text) => {
 };
 
 const startSegmentGame = e => {
-  availableQuestions = questions.filter(
-    question => question.contentSegment === e.target.innerText
-  );
-  if (availableQuestions.length < MAX_QUESTIONS) {
-    MAX_QUESTIONS = availableQuestions.length;
+  if (e.target.innerText === "Play All!") {
+    availableQuestions = [...questions];
+  } else {
+    availableQuestions = questions.filter(
+      question => question.contentSegment === e.target.innerText
+    );
+    isSegmentGame = true;
+  }
+  if (availableQuestions.length < maxQuestions) {
+    availableQuestions.length = availableQuestions;
   }
   getNewQuestion();
   game.classList.remove("hidden");
@@ -72,13 +82,17 @@ const startSegmentGame = e => {
 
 const getNewQuestion = () => {
   cont = false;
-  if (availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS - 1) {
+  if (availableQuestions.length === 0 || questionCounter > maxQuestions - 1) {
     localStorage.setItem("mostRecentScore", score);
-    return window.location.assign("end.html?contentId=" + id);
+    if (isSegmentGame === false) {
+      return window.location.assign("end.html?contentId=" + id + "&all=1");
+    } else {
+      return window.location.assign("end.html?contentId=" + id);
+    }
   }
 
   questionCounter++;
-  questionCounterText.innerText = questionCounter + "/" + MAX_QUESTIONS;
+  questionCounterText.innerText = questionCounter + "/" + maxQuestions;
   const questionIndex = Math.floor(Math.random() * availableQuestions.length);
   currentQuestion = availableQuestions[questionIndex];
   episodeNameText.innerText = currentQuestion.contentSegment;

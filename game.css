@@ -1,111 +1,112 @@
 .choice-container {
-    display: flex;
-    margin-bottom: 0.5rem;
-    width: 100%;
-    font-size: 1.8rem;
-    border: 0.1rem solid rgpa(123, 173, 182, 0.25);
-    background-color: white;
+  display: flex;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  font-size: 1.8rem;
+  border: 0.1rem solid rgpa(123, 173, 182, 0.25);
+  background-color: white;
 }
 
 .choice-prefix {
-    padding: 1.5rem 2.5rem;
-    background-color: #7BADB6;
-    color: white;
+  padding: 1.5rem 2.5rem;
+  background-color: #7badb6;
+  color: white;
 }
 
 .choice-text {
-    padding: 1.5rem;
-    width: 100%;
+  padding: 1.5rem;
+  width: 100%;
 }
 
 .choice-container:hover {
-    cursor: pointer;
-    box-shadow: 0 0.4rem 1.0rem 0 rgba(123, 173, 182, 0.5);
-    transform: translateY(-0.1rem);
-    transition: transform 150ms;
+  cursor: pointer;
+  box-shadow: 0 0.4rem 1rem 0 rgba(123, 173, 182, 0.5);
+  transform: translateY(-0.1rem);
+  transition: transform 150ms;
 }
 
 .incorrect {
-    background-color: #F3A9B5;
+  background-color: #f3a9b5;
 }
 
 .correct {
-    background-color: #92BD6C;
+  background-color: #92bd6c;
 }
 
 /* hud */
 
 #hud {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .hud-prefix {
-    text-align: center;
-    font-size: 2rem
+  text-align: center;
+  font-size: 2rem;
 }
 
 .hud-main-text {
-    text-align: center;
+  text-align: center;
 }
 
 .episode-info {
-    width: 100%;
-    padding: 1rem 2rem;
-    text-align: center;
-    font-family: 'Times New Roman', Times, serif;
+  width: 100%;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
 }
 
 #episodeName:hover {
-    cursor: pointer;
-    /*shadow: 0 0.4rem 1.0rem 0 rgba(123, 173, 182, 0.5);*/
-    transform: translateY(-0.1rem);
-    transition: transform 150ms;
+  cursor: pointer;
+  /*shadow: 0 0.4rem 1.0rem 0 rgba(123, 173, 182, 0.5);*/
+  transform: translateY(-0.1rem);
+  transition: transform 150ms;
 }
 
 #segment {
-    display:block;
+  display: block;
 }
 
 #loader {
-    border: 1.6rem solid white; 
-    border-top: 1.6rem solid #7BADB6; 
-    border-radius: 50%;
-    width: 12rem;
-    height: 12rem;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+  border: 1.6rem solid white;
+  border-top: 1.6rem solid #7badb6;
+  border-radius: 50%;
+  width: 12rem;
+  height: 12rem;
+  animation: spin 1s linear infinite;
+}
 
-.segment-btn  {
-    font-size: 1.8rem;
-    font-weight: 500;
-    background-color: white;
-    border: 0.1rem solid black;
-    box-shadow: none;
-    color:black;
-    padding: 1rem;
-    width: 100%;
-    text-align: left;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.segment-btn {
+  font-size: 1.8rem;
+  font-weight: 500;
+  background-color: white;
+  border: 0.1rem solid black;
+  box-shadow: none;
+  color: black;
+  padding: 1rem;
+  width: 100%;
+  text-align: left;
 }
 
 .segment-btn:hover {
-    color: #A9431E;
+  color: #a9431e;
 }
-
-
-
 
 #segment-buttons {
-    list-style: none;
+  list-style: none;
 }
 
-@media (min-width: 51rem){
-    #segment-buttons {
-        columns: 2 auto;
-    }
-} 
+@media (min-width: 51rem) {
+  #segment-buttons {
+    columns: 2 auto;
+  }
+}
