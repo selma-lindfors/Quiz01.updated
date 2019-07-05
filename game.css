@@ -3,14 +3,8 @@
   margin-bottom: 0.5rem;
   width: 100%;
   font-size: 1.8rem;
-  border: 0.1rem solid rgpa(123, 173, 182, 0.25);
+  border: 0.1rem solid #7badb6;
   background-color: white;
-}
-
-.choice-prefix {
-  padding: 1.5rem 2.5rem;
-  background-color: #7badb6;
-  color: white;
 }
 
 .choice-text {
@@ -23,6 +17,12 @@
   box-shadow: 0 0.4rem 1rem 0 rgba(123, 173, 182, 0.5);
   transform: translateY(-0.1rem);
   transition: transform 150ms;
+}
+
+.choice-prefix {
+  padding: 1.5rem 2.5rem;
+  background-color: #7badb6;
+  color: white;
 }
 
 .incorrect {
@@ -89,7 +89,8 @@
   list-style: none;
 }
 
-.segment-btn {
+.segment-btn,
+#all-btn {
   font-size: 1.8rem;
   font-weight: 500;
   background-color: white;
@@ -99,6 +100,12 @@
   padding: 1rem;
   width: 100%;
   text-align: left;
+}
+
+#all-btn {
+  padding: 0rem;
+  border-width: 0rem;
+  list-style: none;
 }
 
 .segment-btn:hover {

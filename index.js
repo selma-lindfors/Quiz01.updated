@@ -17,19 +17,29 @@ const getData = () => {
     title: title,
     id: questions.filter(question => question.content === title)[0].contentId
   }));
-  createLinkBtn("Play All", 0);
+  createLinkBtn("All Content", 0);
   content.forEach(content => {
     createLinkBtn(content.title, content.id);
   });
 };
 
 const createLinkBtn = (text, id) => {
-  const a = document.createElement("a");
-  contentBox.appendChild(a);
-  const href = document.createAttribute("href");
-  href.value = "game.html?contentId=" + id;
-  a.setAttributeNode(href);
-  a.innerText = text;
-  a.classList.add("btn");
-  a.classList.add("wide");
+  const div = document.createElement("div");
+  contentBox.appendChild(div);
+  const h4 = document.createElement("h4");
+  div.appendChild(h4);
+  h4.innerText = text;
+  const gameLink = document.createElement("a");
+  div.appendChild(gameLink);
+  gameLink.innerText = "Play!";
+  const gameHref = document.createAttribute("href");
+  gameLink.setAttributeNode(gameHref);
+  gameHref.value = "game.html?contentId=" + id;
+  const highScoreLink = document.createElement("a");
+  div.appendChild(highScoreLink);
+  const highScoreHref = document.createAttribute("href");
+  highScoreHref.value = "highscores.html?contentId=" + id;
+  highScoreLink.setAttributeNode(highScoreHref);
+  div.classList.add("content-container");
+  highScoreLink.innerText = "High Scores";
 };

@@ -47,10 +47,10 @@ const segmentSelector = () => {
   const segmentList = [
     ...new Set(questions.map(question => question.contentSegment))
   ];
+  createButtonInsideListItem(document.getElementById("all-btn"), "Play All!");
   segmentList.forEach(segment =>
     createButtonInsideListItem(segmentButtons, segment)
   );
-  createButtonInsideListItem(segmentButtons, "Play All!");
 };
 
 const createButtonInsideListItem = (list, text) => {
